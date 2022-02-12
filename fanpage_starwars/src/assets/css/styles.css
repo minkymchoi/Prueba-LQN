@@ -14311,17 +14311,22 @@ button:focus, :focus {
 .table .badge i {
   margin-right: 10px; }
 
-.header-background {
+.black-background {
 
     background-image: url("../img/background2.jpg");
     background-repeat: repeat-y;
     background-size: 100%;
 }
 
-
-col-img-6 {
-  width: 50%;
-  display: block;
-  margin-left: auto;
-  margin-right: auto;
+.site-card-border-less-wrapper {
+  padding: 30px;
+  background: #ececec;
 }
+
+
+
+.img-sm {
+  height: 50% !important;
+  width: 50% !important;
+}
+
