@@ -14318,15 +14318,10 @@ button:focus, :focus {
     background-size: 100%;
 }
 
-.site-card-border-less-wrapper {
-  padding: 30px;
-  background: #ececec;
-}
+.space-background {
 
-
-
-.img-sm {
-  height: 50% !important;
-  width: 50% !important;
+  background-image: url("../img/Background1.webp");
+  background-repeat: repeat-y;
+  background-size: 100%;
 }
 

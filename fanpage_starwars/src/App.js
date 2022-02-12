@@ -1,13 +1,13 @@
 import './App.css';
 import Header  from './components/header';
+import TableCharacter  from './components/tableCharacter';
 
 
 function App() {
   return (
     <div>
-      <header>
-        < Header/>
-      </header>
+      < Header/>
+      <TableCharacter/>
     </div>
   );
 }
