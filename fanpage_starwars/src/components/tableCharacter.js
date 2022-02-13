@@ -3,12 +3,14 @@ import { Table, Button, Space, Input } from 'antd';
 import React from 'react';
 import { SearchOutlined } from '@ant-design/icons';
 import Highlighter from 'react-highlight-words';
+import CharacterModal from './modal';
 
 
 const TableCharacter = () => {
   const [searchText, setSearchText] = React.useState('')
   const [searchedColumn, setSearchedColumn] = React.useState('')
   const [searchInput, setSearchInput] = React.useState('')
+  const [isShowModal, setIsShowModal] = React.useState(false)
  
   const handleReset = clearFilters => {
     clearFilters();
@@ -107,13 +109,6 @@ const TableCharacter = () => {
       ...getColumnSearchProps('name'),
     },
     {
-      title: 'Color de cabello',
-      dataIndex: 'hairColor',
-      key: 'hairColor',
-      responsive: ['xs', 'md'],
-      ...getColumnSearchProps('hairColor'),
-    },
-    {
       title: 'Fecha de cumpleaños',
       dataIndex: 'birthYear',
       key: 'birthYear',
@@ -147,7 +142,9 @@ const TableCharacter = () => {
       responsive: ['xs', 'md'],
       render: (text, record) => (
         <Space size="middle">
-          <Button type="primary">Ver detalle</Button>
+          <Button type="primary" onClick={() => setIsShowModal(true)}>
+            Ver detalle
+          </Button>
         </Space>
       ),
     },
@@ -157,6 +154,7 @@ const TableCharacter = () => {
       <div className='container'>
         <Table className='align-items-center'responsive columns={columns} dataSource={data}></Table>
       </div>
+      <CharacterModal isShow={isShowModal} setIsShowModal={setIsShowModal} />
     </div>
   )
 }

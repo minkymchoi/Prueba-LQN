@@ -10,5 +10,5 @@ const HeaderNav = () => {
     </div>
   )
 };
-  export default HeaderNav 
 
+export default HeaderNav
