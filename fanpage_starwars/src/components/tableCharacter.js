@@ -1,17 +1,71 @@
 
 import { Table, Button, Space, Input } from 'antd';
-import React from 'react';
+import React, { useEffect } from 'react';
 import { SearchOutlined } from '@ant-design/icons';
 import Highlighter from 'react-highlight-words';
 import CharacterModal from './modal';
-
+import {
+  useQuery
+} from "@apollo/client";
+import { ALL_PEOPLE } from '../getPeople'
 
 const TableCharacter = () => {
   const [searchText, setSearchText] = React.useState('')
   const [searchedColumn, setSearchedColumn] = React.useState('')
   const [searchInput, setSearchInput] = React.useState('')
   const [isShowModal, setIsShowModal] = React.useState(false)
- 
+  const [people, setPeople] = React.useState('')
+  const [dataTable, setDataTable] = React.useState([])
+
+
+  const {data, loading} = useQuery(ALL_PEOPLE)
+
+  const parseData = () => {
+    const edges = data.allPeople.edges
+    let rows = []
+    for (let index = 0; index < edges.length; index++) {
+      const element = edges[index].node;
+      let films = []
+      const edgesFilms = element.filmConnection.edges
+      for (let index = 0; index < edgesFilms.length; index++) {
+        const element = edgesFilms[index].node;
+        films.push(element.title)
+      }
+      let starships = []
+      const edgesStarship = element.starshipConnection.edges
+      for (let index = 0; index < edgesStarship.length; index++) {
+        const element = edgesStarship[index].node;
+        starships.push(element.name)
+      }
+      let vehicles = []
+      const edgesVehicle = element.vehicleConnection.edges
+      for (let index = 0; index < edgesVehicle.length; index++) {
+        const element = edgesVehicle[index].node;
+        vehicles.push(element.name)
+      }
+      rows.push({
+        key: element.id,
+        name: element.name,
+        hairColor: element.hairColor,
+        birthYear: element.birthYear,
+        gender: element.gender,
+        height: element.height,
+        mass: element.mass,
+        eyeColor: element.eyeColor,
+        homeWorld: element.homeworld.name,
+        films: films,
+        starships: starships,
+        vehicles: vehicles
+      })
+    }
+    setDataTable(rows)
+  }
+  useEffect(() => {
+    if (data && data.allPeople) {
+      parseData()
+    }
+  }, [data])
+
   const handleReset = clearFilters => {
     clearFilters();
     setSearchText('')
@@ -86,19 +140,6 @@ const TableCharacter = () => {
       ),
   }); 
 
-  const data = [
-    {
-      key: '1',
-      name: 'John Brown',
-      hairColor: 'Azul',
-      birthYear: '10 de febrero',
-      gender: 'Masculino',
-      height: '160cm',
-      mass: '80kg'
-
-    },
-  ];
-
   const columns = [
     {
       title: 'Nombre',
@@ -142,20 +183,26 @@ const TableCharacter = () => {
       responsive: ['xs', 'md'],
       render: (text, record) => (
         <Space size="middle">
-          <Button type="primary" onClick={() => setIsShowModal(true)}>
+          <Button type="primary" onClick={() => {
+            setIsShowModal(true)
+            setPeople(record)
+          }}>
             Ver detalle
           </Button>
         </Space>
       ),
     },
   ];
+  if (loading) {
+    return (<p>loading</p>)
+  }
   return (
     <div className='black-background pt-5'>
       <div className='container'>
-        <Table className='align-items-center'responsive columns={columns} dataSource={data}></Table>
+        <Table className='align-items-center'responsive columns={columns} dataSource={dataTable}></Table>
       </div>
-      <CharacterModal isShow={isShowModal} setIsShowModal={setIsShowModal} />
+      <CharacterModal isShow={isShowModal} setIsShowModal={setIsShowModal} people={people} />
     </div>
   )
 }
-export default TableCharacter 
+export default TableCharacter

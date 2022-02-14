@@ -1,13 +1,13 @@
 import { Row, Modal, Col, Divider, Tag } from 'antd';
 
-const CharacterModal = ({isShow, setIsShowModal}) => {
+const CharacterModal = ({isShow, setIsShowModal, people}) => {
   const handleOk = () => {
     setIsShowModal(false)
   };
 
   return (
     <Modal
-      title="Perfil"
+      title={'perfil'}
       visible={isShow}
       onOk={handleOk}
       closable={false}
@@ -25,6 +25,7 @@ const CharacterModal = ({isShow, setIsShowModal}) => {
             type='text'
             className='form-control form-control-alternative'
             placeholder='Nombre'
+            value={people.name}
             disabled>
           </input>
         </div>
@@ -38,6 +39,7 @@ const CharacterModal = ({isShow, setIsShowModal}) => {
             type='text'
             className='form-control form-control-alternative'
             placeholder='Cumpleaños'
+            value={people.birthYear}
             disabled>
           </input>
         </div>
@@ -53,6 +55,7 @@ const CharacterModal = ({isShow, setIsShowModal}) => {
               type='text'
               className='form-control form-control-alternative'
               placeholder='Color de cabello'
+              value={people.hairColor}
               disabled>
             </input>
           </div>
@@ -66,6 +69,7 @@ const CharacterModal = ({isShow, setIsShowModal}) => {
             type='text'
             className='form-control form-control-alternative'
             placeholder='Color de ojos'
+            value={people.eyeColor}
             disabled>
           </input>
         </div>
@@ -81,6 +85,7 @@ const CharacterModal = ({isShow, setIsShowModal}) => {
             type='text'
             className='form-control form-control-alternative'
             placeholder='Altura'
+            value={people.height}
             disabled>
           </input>
         </div>
@@ -94,6 +99,7 @@ const CharacterModal = ({isShow, setIsShowModal}) => {
             type='text'
             className='form-control form-control-alternative'
             placeholder='Peso'
+            value={people.mass}
             disabled>
           </input>
         </div>
@@ -109,6 +115,7 @@ const CharacterModal = ({isShow, setIsShowModal}) => {
             type='text'
             className='form-control form-control-alternative'
             placeholder='Color de piel'
+            value={people.skinColor}
             disabled>
           </input>
         </div>
@@ -122,6 +129,7 @@ const CharacterModal = ({isShow, setIsShowModal}) => {
             type='text'
             className='form-control form-control-alternative'
             placeholder='Planeta'
+            value={people.homeWorld}
             disabled>
           </input>
         </div>
@@ -131,27 +139,9 @@ const CharacterModal = ({isShow, setIsShowModal}) => {
       <Row gutter={{ xs: 8, sm: 16, md: 24, lg: 32 }}>
         <Col span={24}>
           <div>
-            <Tag color="red" className='h3 text-danger'>red</Tag>
-            <Tag color="volcano" className='h3 text-warning'>volcano</Tag>
-            <Tag color="lime" className='h3 text-yellow'>lime</Tag>
-            <Tag color="green" className='h3 text-success'>green</Tag>
-            <Tag color="cyan" className='h3 text-info'>cyan</Tag>
-            <Tag color="blue" className='h3 text-primary'>blue</Tag>
-            <Tag color="geekblue" className='h3 text-purple'>geekblue</Tag>
-          </div>
-        </Col>
-      </Row>
-      <Divider orientation="left">Especies</Divider>
-      <Row gutter={{ xs: 8, sm: 16, md: 24, lg: 32 }}>
-        <Col span={24}>
-          <div>
-            <Tag color="red" className='h3 text-danger'>red</Tag>
-            <Tag color="volcano" className='h3 text-warning'>volcano</Tag>
-            <Tag color="lime" className='h3 text-yellow'>lime</Tag>
-            <Tag color="green" className='h3 text-success'>green</Tag>
-            <Tag color="cyan" className='h3 text-info'>cyan</Tag>
-            <Tag color="blue" className='h3 text-primary'>blue</Tag>
-            <Tag color="geekblue" className='h3 text-purple'>geekblue</Tag>
+            {people.films.map((film, index) => (
+            <Tag key={index} color="red" className='h3 text-danger'>{film}</Tag>
+            ))}
           </div>
         </Col>
       </Row>
@@ -159,13 +149,9 @@ const CharacterModal = ({isShow, setIsShowModal}) => {
       <Row gutter={{ xs: 8, sm: 16, md: 24, lg: 32 }}>
         <Col span={24}>
           <div>
-            <Tag color="red" className='h3 text-danger'>red</Tag>
-            <Tag color="volcano" className='h3 text-warning'>volcano</Tag>
-            <Tag color="lime" className='h3 text-yellow'>lime</Tag>
-            <Tag color="green" className='h3 text-success'>green</Tag>
-            <Tag color="cyan" className='h3 text-info'>cyan</Tag>
-            <Tag color="blue" className='h3 text-primary'>blue</Tag>
-            <Tag color="geekblue" className='h3 text-purple'>geekblue</Tag>
+            {people.starships.map((starship, index) => (
+              <Tag key={index} color="volcano" className='h3 text-warning'>{starship}</Tag>
+            ))}
           </div>
         </Col>
       </Row>
@@ -173,13 +159,9 @@ const CharacterModal = ({isShow, setIsShowModal}) => {
       <Row gutter={{ xs: 8, sm: 16, md: 24, lg: 32 }}>
         <Col span={24}>
           <div>
-            <Tag color="red" className='h3 text-danger'>red</Tag>
-            <Tag color="volcano" className='h3 text-warning'>volcano</Tag>
-            <Tag color="lime" className='h3 text-yellow'>lime</Tag>
-            <Tag color="green" className='h3 text-success'>green</Tag>
-            <Tag color="cyan" className='h3 text-info'>cyan</Tag>
-            <Tag color="blue" className='h3 text-primary'>blue</Tag>
-            <Tag color="geekblue" className='h3 text-purple'>geekblue</Tag>
+            {people.vehicles.map((vehicles, index) => (
+              <Tag key={index} color="green" className='h3 text-success'>{vehicles}</Tag>
+            ))}
           </div>
         </Col>
       </Row>
