@@ -14,9 +14,8 @@ const TableCharacter = () => {
   const [searchedColumn, setSearchedColumn] = React.useState('')
   const [searchInput, setSearchInput] = React.useState('')
   const [isShowModal, setIsShowModal] = React.useState(false)
-  const [people, setPeople] = React.useState('')
+  const [people, setPeople] = React.useState({})
   const [dataTable, setDataTable] = React.useState([])
-
 
   const {data, loading} = useQuery(ALL_PEOPLE)
 
@@ -53,9 +52,9 @@ const TableCharacter = () => {
         mass: element.mass,
         eyeColor: element.eyeColor,
         homeWorld: element.homeworld.name,
-        films: films,
-        starships: starships,
-        vehicles: vehicles
+        films: films || [],
+        starships: starships || [],
+        vehicles: vehicles || []
       })
     }
     setDataTable(rows)
@@ -201,7 +200,9 @@ const TableCharacter = () => {
       <div className='container'>
         <Table className='align-items-center'responsive columns={columns} dataSource={dataTable}></Table>
       </div>
-      <CharacterModal isShow={isShowModal} setIsShowModal={setIsShowModal} people={people} />
+      {people.key && (
+        <CharacterModal isShow={isShowModal} setIsShowModal={setIsShowModal} people={people} />
+      )}
     </div>
   )
 }
